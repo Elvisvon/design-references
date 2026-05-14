@@ -418,17 +418,6 @@ function switchPreview(dir, mode, btn) {
   }
 }
 
-')">
-      ${r.first_img ? `<img class="ref-thumb" src="references/${r.dir}/${r.first_img}" alt="" loading="lazy">` : `<div class="ref-thumb" style="display:flex;align-items:center;justify-content:center;color:#444;">无图片</div>`}
-      <div class="ref-info">
-        <div class="ref-name">${r.name}</div>
-        <div class="ref-meta">${r.img_count} 张图片</div>
-        <div class="ref-analysis">${r.analysis}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
 
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal-overlay')) return;
@@ -444,7 +433,6 @@ document.addEventListener('keydown', e => {
 });
 
 renderSystems('');
-renderRefs('');
 </script>
 </body>
 </html>
