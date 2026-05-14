@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Preview: BMW M (Dark)</title>
+<style>
+  :root {
+    --bg-page: #000000;
+    --bg-surface: #1a1a1a;
+    --bg-elevated: #262626;
+    --bg-hover: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #bbbbbb;
+    --text-tertiary: #7e7e7e;
+    --text-quaternary: #7e7e7e;
+    --brand: #ffffff;
+    --accent: #ffffff;
+    --accent-hover: #ffffff;
+    --success: #0fa336;
+    --emerald: #0fa336;
+    --border-primary: #3c3c3c;
+    --border-secondary: #3c3c3c;
+    --border-subtle: rgba(255,255,255,0.05);
+    --border-standard: rgba(255,255,255,0.08);
+    --shadow-ring: rgba(0,0,0,0.2) 0px 0px 0px 1px;
+    --shadow-subtle: rgba(0,0,0,0.03) 0px 1.2px 0px 0px;
+    --shadow-card: rgba(0,0,0,0.2) 0px 0px 0px 1px, rgba(0,0,0,0.3) 0px 2px 4px 0px;
+    --shadow-elevated: rgba(0,0,0,0.4) 0px 2px 4px 0px, rgba(0,0,0,0.2) 0px 0px 0px 1px;
+    --shadow-dialog: rgba(0,0,0,0) 0px 8px 2px 0px, rgba(0,0,0,0.01) 0px 5px 2px 0px, rgba(0,0,0,0.04) 0px 3px 2px 0px, rgba(0,0,0,0.07) 0px 1px 1px 0px, rgba(0,0,0,0.08) 0px 0px 1px 0px;
+    --font-sans: BMWTypeNextLatin, sans-serif, Inter, -apple-system, system-ui, sans-serif;
+    --font-mono: ui-monospace, SF Mono, Menlo, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px; font-weight: 400; line-height: 1.50;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* DARK MODE BADGE */
+  .dark-badge {
+    position: fixed; top: 16px; right: 16px; z-index: 200;
+    background: var(--text-primary); color: var(--bg-page);
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 32px;
+    background: rgba(8,9,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .nav-brand { font-size: 14px; font-weight: 510; color: var(--text-primary); text-decoration: none; letter-spacing: -0.28px; }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 510; color: var(--text-tertiary); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    display: inline-block; background: var(--brand); color: #ffffff;
+    padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 510;
+    text-decoration: none; transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* HERO */
+  .hero { padding: 96px 32px 80px; text-align: center; }
+  .hero h1 {
+    font-size: 48px; font-weight: 510; line-height: 1.00;
+    letter-spacing: -1.056px; color: var(--text-primary); margin-bottom: 16px;
+  }
+  .hero p { font-size: 18px; font-weight: 400; line-height: 1.60; color: var(--text-tertiary); max-width: 560px; margin: 0 auto 32px; letter-spacing: -0.165px; }
+  .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-brand {
+    display: inline-block; background: var(--brand); color: #ffffff;
+    padding: 10px 20px; border-radius: 6px; border: none;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 510;
+    text-decoration: none; cursor: pointer; transition: background 0.15s;
+  }
+  .btn-brand:hover { background: var(--accent); }
+  .btn-ghost {
+    display: inline-block; background: rgba(255,255,255,0.02); color: var(--text-secondary);
+    padding: 10px 20px; border-radius: 6px; border: 1px solid var(--border-primary);
+    font-family: var(--font-sans); font-size: 14px; font-weight: 510;
+    text-decoration: none; cursor: pointer; transition: border-color 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--border-secondary); background: rgba(255,255,255,0.04); }
+
+  /* SECTIONS */
+  .section { padding: 64px 32px; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--text-quaternary); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .section-title { font-size: 32px; font-weight: 510; line-height: 1.13; letter-spacing: -0.704px; margin-bottom: 32px; }
+  .section-divider { border: none; border-top: 1px solid var(--border-subtle); margin: 0; }
+
+  /* COLORS */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .color-swatch { border-radius: 8px; overflow: hidden; background: var(--bg-elevated); border: 1px solid var(--border-subtle); }
+  .color-swatch-block { height: 72px; width: 100%; }
+  .color-swatch-info { padding: 10px 12px; }
+  .color-swatch-name { font-size: 13px; font-weight: 510; margin-bottom: 2px; letter-spacing: -0.13px; }
+  .color-swatch-hex { font-size: 12px; color: var(--text-quaternary); font-family: var(--font-mono); }
+  .color-swatch-role { font-size: 11px; color: var(--text-quaternary); margin-top: 3px; }
+  .color-group-label { font-size: 14px; font-weight: 510; color: var(--text-tertiary); letter-spacing: -0.182px; margin: 24px 0 10px; }
+
+  /* TYPOGRAPHY */
+  .type-sample { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .type-sample:last-child { border-bottom: none; }
+  .type-meta { font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--text-quaternary); margin-top: 8px; }
+
+  /* BUTTONS */
+  .button-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .button-item { text-align: center; }
+  .button-label { font-size: 12px; font-weight: 510; color: var(--text-quaternary); margin-top: 8px; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 24px; border: 1px solid var(--border-standard); transition: border-color 0.2s, background 0.2s; }
+  .card:hover { border-color: var(--border-secondary); background: rgba(255,255,255,0.04); }
+  .card h3 { font-size: 20px; font-weight: 590; letter-spacing: -0.24px; margin-bottom: 8px; }
+  .card p { font-size: 15px; color: var(--text-tertiary); line-height: 1.60; letter-spacing: -0.165px; }
+  .card-badge { display: inline-block; font-size: 12px; font-weight: 510; padding: 2px 8px; border-radius: 9999px; margin-bottom: 12px; }
+
+  /* FORMS */
+  .form-group { margin-bottom: 20px; max-width: 400px; }
+  .form-label { display: block; font-size: 14px; font-weight: 510; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: -0.182px; }
+  .form-input {
+    width: 100%; background: rgba(255,255,255,0.02); color: var(--text-secondary);
+    border: 1px solid var(--border-standard); padding: 10px 14px; border-radius: 6px;
+    font-family: var(--font-sans); font-size: 14px; outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(113,112,255,0.25); }
+  .form-input--focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(113,112,255,0.25); }
+  .form-input--error { border-color: #e5484d; box-shadow: 0 0 0 2px rgba(229,72,77,0.25); }
+  .form-textarea {
+    width: 100%; min-height: 80px; background: rgba(255,255,255,0.02); color: var(--text-secondary);
+    border: 1px solid var(--border-standard); padding: 12px 14px; border-radius: 6px;
+    font-family: var(--font-sans); font-size: 14px; resize: vertical; outline: none;
+  }
+  .form-state-label { font-size: 11px; color: var(--text-quaternary); margin-top: 4px; }
+
+  /* SPACING */
+  .spacing-row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .spacing-item { text-align: center; }
+  .spacing-block { background: var(--brand); border-radius: 3px; margin-bottom: 6px; height: 28px; }
+  .spacing-value { font-family: var(--font-mono); font-size: 11px; font-weight: 400; color: var(--text-quaternary); }
+
+  /* RADIUS */
+  .radius-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .radius-item { text-align: center; }
+  .radius-box { width: 64px; height: 64px; background: var(--brand); margin-bottom: 6px; }
+  .radius-label { font-family: var(--font-mono); font-size: 11px; font-weight: 400; color: var(--text-quaternary); }
+  .radius-context { font-size: 10px; color: var(--text-quaternary); }
+
+  /* ELEVATION */
+  .elevation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .elevation-card { background: var(--bg-elevated); border-radius: 8px; padding: 20px; text-align: center; }
+  .elevation-label { font-size: 14px; font-weight: 510; letter-spacing: -0.182px; margin-bottom: 4px; }
+  .elevation-desc { font-family: var(--font-mono); font-size: 11px; color: var(--text-quaternary); }
+
+  /* FOOTER */
+  .footer { padding: 32px; text-align: center; border-top: 1px solid var(--border-subtle); font-size: 13px; color: var(--text-quaternary); }
+  .footer a { color: var(--accent); text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; letter-spacing: -0.8px; }
+    .nav-links { display: none; }
+    .section { padding: 48px 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="dark-badge">Dark Mode</div>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">awesome-design-md</a>
+  <ul class="nav-links">
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#buttons">Buttons</a></li>
+    <li><a href="#cards">Cards</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#spacing">Spacing</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Start Building</a>
+</nav>
+
+<section class="hero">
+  <h1>Design System<br>Inspired by BMW M</h1>
+  <p>A motorsport-engineering interface anchored on a near-black canvas with white BMW Type Next Latin display headlines in confident UPPERCASE. The brand carries no decorative voltage — its energy comes f</p>
+  <div class="hero-buttons">
+    <a class="btn-brand" href="#">Start Building</a>
+    <a class="btn-ghost" href="#">View Documentation</a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="colors">
+  <div class="section-label">01 / Colors</div>
+  <h2 class="section-title">Color Palette</h2>
+  <div class="color-group-label">Background Surfaces</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#000000"></div><div class="color-swatch-info"><div class="color-swatch-name">Canvas</div><div class="color-swatch-hex">#000000</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1a1a1a"></div><div class="color-swatch-info"><div class="color-swatch-name">Surface Card</div><div class="color-swatch-hex">#1a1a1a</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#262626"></div><div class="color-swatch-info"><div class="color-swatch-name">Surface Elevated</div><div class="color-swatch-hex">#262626</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#0d0d0d"></div><div class="color-swatch-info"><div class="color-swatch-name">Surface Soft</div><div class="color-swatch-hex">#0d0d0d</div></div></div>
+  </div>
+  <div class="color-group-label">Brand & Accent</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ffffff"></div><div class="color-swatch-info"><div class="color-swatch-name">Primary</div><div class="color-swatch-hex">#ffffff</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#000000"></div><div class="color-swatch-info"><div class="color-swatch-name">On Primary</div><div class="color-swatch-hex">#000000</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#0066b1"></div><div class="color-swatch-info"><div class="color-swatch-name">M Blue Light</div><div class="color-swatch-hex">#0066b1</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1c69d4"></div><div class="color-swatch-info"><div class="color-swatch-name">M Blue Dark</div><div class="color-swatch-hex">#1c69d4</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#e22718"></div><div class="color-swatch-info"><div class="color-swatch-name">M Red</div><div class="color-swatch-hex">#e22718</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1c69d4"></div><div class="color-swatch-info"><div class="color-swatch-name">Bmw Blue</div><div class="color-swatch-hex">#1c69d4</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#0653b6"></div><div class="color-swatch-info"><div class="color-swatch-name">Electric Blue</div><div class="color-swatch-hex">#0653b6</div></div></div>
+  </div>
+  <div class="color-group-label">Text & Content</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ffffff"></div><div class="color-swatch-info"><div class="color-swatch-name">Ink</div><div class="color-swatch-hex">#ffffff</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#bbbbbb"></div><div class="color-swatch-info"><div class="color-swatch-name">Body</div><div class="color-swatch-hex">#bbbbbb</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#e6e6e6"></div><div class="color-swatch-info"><div class="color-swatch-name">Body Strong</div><div class="color-swatch-hex">#e6e6e6</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#7e7e7e"></div><div class="color-swatch-info"><div class="color-swatch-name">Muted</div><div class="color-swatch-hex">#7e7e7e</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ffffff"></div><div class="color-swatch-info"><div class="color-swatch-name">On Dark</div><div class="color-swatch-hex">#ffffff</div></div></div>
+  </div>
+  <div class="color-group-label">Status</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#f4b400"></div><div class="color-swatch-info"><div class="color-swatch-name">Warning</div><div class="color-swatch-hex">#f4b400</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#0fa336"></div><div class="color-swatch-info"><div class="color-swatch-name">Success</div><div class="color-swatch-hex">#0fa336</div></div></div>
+  </div>
+  <div class="color-group-label">Border & Dividers</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#3c3c3c"></div><div class="color-swatch-info"><div class="color-swatch-name">Hairline</div><div class="color-swatch-hex">#3c3c3c</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#262626"></div><div class="color-swatch-info"><div class="color-swatch-name">Hairline Strong</div><div class="color-swatch-hex">#262626</div></div></div>
+  </div>
+  <div class="color-group-label">Semantic</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#2b2b2b"></div><div class="color-swatch-info"><div class="color-swatch-name">Carbon Gray</div><div class="color-swatch-hex">#2b2b2b</div></div></div>
+  </div>
+
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="typography">
+  <div class="section-label">02 / Typography</div>
+  <h2 class="section-title">Typography Scale</h2>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:80px;font-weight:700;line-height:1;letter-spacing:0px;">Display Xl</div><div class="type-meta">display-xl — 80px / 700 / 1 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:56px;font-weight:700;line-height:1.05;letter-spacing:0px;">Display Lg</div><div class="type-meta">display-lg — 56px / 700 / 1.05 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:40px;font-weight:700;line-height:1.1;letter-spacing:0px;">Display Md</div><div class="type-meta">display-md — 40px / 700 / 1.1 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:24px;font-weight:700;line-height:1.3;letter-spacing:0px;">Title Lg</div><div class="type-meta">title-lg — 24px / 700 / 1.3 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:20px;font-weight:400;line-height:1.4;letter-spacing:0px;">Title Md</div><div class="type-meta">title-md — 20px / 400 / 1.4 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:18px;font-weight:400;line-height:1.4;letter-spacing:0px;">Title Sm</div><div class="type-meta">title-sm — 18px / 400 / 1.4 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin Light, BMWTypeNextLatin, sans-serif;font-size:16px;font-weight:300;line-height:1.5;letter-spacing:0px;">The quick brown fox jumps over the lazy dog.</div><div class="type-meta">body-md — 16px / 300 / 1.5 / BMWTypeNextLatin Light</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin Light, sans-serif;font-size:14px;font-weight:300;line-height:1.5;letter-spacing:0px;">The quick brown fox jumps over the lazy dog.</div><div class="type-meta">body-sm — 14px / 300 / 1.5 / BMWTypeNextLatin Light</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:14px;font-weight:700;line-height:1.3;letter-spacing:1.5px;">Label Uppercase</div><div class="type-meta">label-uppercase — 14px / 700 / 1.3 / BMWTypeNextLatin</div></div>
+  <div class="type-sample"><div style="font-family:BMWTypeNextLatin, sans-serif;font-size:12px;font-weight:400;line-height:1.4;letter-spacing:0.5px;">Caption</div><div class="type-meta">caption — 12px / 400 / 1.4 / BMWTypeNextLatin</div></div>
+
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="buttons">
+  <div class="section-label">03 / Buttons</div>
+  <h2 class="section-title">Button Variants</h2>
+  <div class="button-row">
+    <div class="button-item"><a class="btn-brand" href="#">Start Building</a><div class="button-label">Primary Brand</div></div>
+    <div class="button-item"><a class="btn-ghost" href="#">Documentation</a><div class="button-label">Ghost</div></div>
+    <div class="button-item"><span style="display:inline-block; background:rgba(94,106,210,0.15); color:var(--accent); padding:4px 12px; border-radius:9999px; font-size:12px; font-weight:510;">In Progress</span><div class="button-label">Status Pill</div></div>
+    <div class="button-item"><span style="display:inline-block; background:rgba(16,185,129,0.15); color:var(--emerald); padding:4px 12px; border-radius:9999px; font-size:12px; font-weight:510;">Done</span><div class="button-label">Success Pill</div></div>
+    <div class="button-item"><span style="display:inline-block; background:rgba(255,255,255,0.05); color:var(--text-primary); padding:2px 8px; border-radius:2px; font-size:10px; font-weight:510; border:1px solid rgba(255,255,255,0.05);">v2.4</span><div class="button-label">Subtle Badge</div></div>
+    <div class="button-item"><span style="display:inline-block; background:transparent; color:var(--text-secondary); padding:4px 10px; border-radius:9999px; font-size:12px; font-weight:510; border:1px solid var(--border-primary);">Filter</span><div class="button-label">Pill Chip</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="cards">
+  <div class="section-label">04 / Cards</div>
+  <h2 class="section-title">Card Examples</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-badge" style="background:rgba(94,106,210,0.15); color:var(--accent);">Feature</div>
+      <h3>Primary Feature</h3>
+      <p>A sample card showcasing the BMW M design system's surface and typography treatments.</p>
+    </div>
+    <div class="card" style="border-color: var(--border-secondary); background: rgba(255,255,255,0.04);">
+      <div class="card-badge" style="background:rgba(16,185,129,0.15); color:var(--emerald);">Active</div>
+      <h3>Elevated Card</h3>
+      <p>This card uses the elevated surface to demonstrate depth hierarchy.</p>
+    </div>
+    <div class="card">
+      <div class="card-badge" style="background:rgba(113,112,255,0.15); color:var(--accent);">Info</div>
+      <h3>Information</h3>
+      <p>Third card variant showing the standard card surface with border-defined depth.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="forms">
+  <div class="section-label">05 / Forms</div>
+  <h2 class="section-title">Form Elements</h2>
+  <div class="form-group"><label class="form-label">Title</label><input class="form-input" type="text" placeholder="Enter title..."><div class="form-state-label">Default</div></div>
+  <div class="form-group"><label class="form-label">Assignee</label><input class="form-input form-input--focus" type="text" value="@user"><div class="form-state-label">Focus (accent ring)</div></div>
+  <div class="form-group"><label class="form-label">Priority</label><input class="form-input form-input--error" type="text" value="invalid value"><div class="form-state-label">Error (red ring)</div></div>
+  <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe..."></textarea></div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="spacing">
+  <div class="section-label">06 / Spacing</div>
+  <h2 class="section-title">Spacing Scale</h2>
+  <div class="spacing-row">
+    <div class="spacing-item"><div class="spacing-block" style="width:4px"></div><div class="spacing-value">xxs: 4px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:8px"></div><div class="spacing-value">xs: 8px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:12px"></div><div class="spacing-value">sm: 12px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:16px"></div><div class="spacing-value">md: 16px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:24px"></div><div class="spacing-value">lg: 24px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:40px"></div><div class="spacing-value">xl: 40px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:64px"></div><div class="spacing-value">xxl: 64px</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:96px"></div><div class="spacing-value">section: 96px</div></div>
+  </div>
+
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="radius">
+  <div class="section-label">07 / Radius</div>
+  <h2 class="section-title">Border Radius Scale</h2>
+  <div class="radius-row">
+    <div class="radius-item"><div class="radius-box" style="border-radius:0px"></div><div class="radius-label">0px</div><div class="radius-context">Sharp</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:2px"></div><div class="radius-label">2px</div><div class="radius-context">Badges</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:4px"></div><div class="radius-label">4px</div><div class="radius-context">Small</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:6px"></div><div class="radius-label">6px</div><div class="radius-context">Buttons</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:9999px"></div><div class="radius-label">9999px</div><div class="radius-context">Pills</div></div>
+  </div>
+
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="elevation">
+  <div class="section-label">08 / Elevation</div>
+  <h2 class="section-title">Elevation &amp; Depth</h2>
+  <div class="elevation-grid">
+    <div class="elevation-card" style="border: 1px solid var(--border-subtle);"><div class="elevation-label">Level 0: Flat</div><div class="elevation-desc">No shadow</div></div>
+    <div class="elevation-card" style="box-shadow: rgba(0,0,0,0.03) 0px 1.2px 0px 0px;"><div class="elevation-label">Level 1: Subtle</div><div class="elevation-desc">Micro-elevation</div></div>
+    <div class="elevation-card" style="border: 1px solid var(--border-standard);"><div class="elevation-label">Level 2: Surface</div><div class="elevation-desc">Border-defined depth</div></div>
+    <div class="elevation-card" style="box-shadow: var(--shadow-elevated);"><div class="elevation-label">Level 3: Elevated</div><div class="elevation-desc">Floating elements</div></div>
+    <div class="elevation-card" style="box-shadow: 0 0 0 2px var(--accent);"><div class="elevation-label">Focus</div><div class="elevation-desc">Accent ring</div></div>
+    <div class="elevation-card" style="box-shadow: inset rgba(0,0,0,0.2) 0px 0px 12px 0px;"><div class="elevation-label">Inset</div><div class="elevation-desc">Sunken panel</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  Generated from BMW M DESIGN.md — awesome-design-md
+</footer>
+
+</body>
+</html>
